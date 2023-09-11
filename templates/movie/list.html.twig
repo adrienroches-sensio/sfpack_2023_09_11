@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'List of movies' %}
+
+{% block main %}
+    <div class="album py-5 bg-light">
+        <div class="container">
+
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                {% for movie in movies %}
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <p class="card-text">
+                                    {% for genre in movie.genres %}
+                                        <span class="badge bg-dark">{{ genre }}</span>
+                                    {% endfor %}
+                                <h3>{{ movie.title|title }}</h3>{{ movie.plot|slice(0, 300) }}...
+                                </p>
+                                <a href="/movies/{{ movie.slug }}">Voir plus</a>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-muted">{{ movie.year }}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock main %}
