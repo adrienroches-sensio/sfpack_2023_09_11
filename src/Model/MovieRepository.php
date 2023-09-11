@@ -67,6 +67,7 @@ final class MovieRepository
             slug: $raw['slug'],
             title: $raw['title'],
             plot: $raw['plot'],
+            poster: $raw['poster'],
             releasedAt: new DateTimeImmutable($raw['releasedAt']),
             genres: $raw['genres']
         );
