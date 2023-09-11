@@ -17,7 +17,7 @@
                                     {% endfor %}
                                 <h3>{{ movie.title|title }}</h3>{{ movie.plot|slice(0, 300) }}...
                                 </p>
-                                <a href="/movies/{{ movie.slug }}">Voir plus</a>
+                                <a href="{{ path('app_movies_details', {slug: movie.slug}) }}">Voir plus</a>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <small class="text-muted">{{ movie.year }}</small>
                                 </div>
