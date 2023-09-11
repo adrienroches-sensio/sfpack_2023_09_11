@@ -9,6 +9,11 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
+                {% for movie in movies %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_movies_details', {'slug': movie.slug}) }}">{{ movie.title|title }}</a>
+                    </li>
+                {% endfor %}
             </ul>
         </div>
     </div>
