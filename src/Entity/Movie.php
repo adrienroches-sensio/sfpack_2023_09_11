@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\MovieRepository;
+use App\Validator\Constraints\MoviePosterExists;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -34,6 +35,7 @@ class Movie
 
     #[Assert\NotNull()]
     #[Assert\Length(min: 4)]
+    #[MoviePosterExists()]
     #[ORM\Column(length: 255)]
     private ?string $poster = null;
 
