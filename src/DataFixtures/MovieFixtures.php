@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Movie;
 use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
 /**
@@ -17,7 +18,7 @@ use Doctrine\Persistence\ObjectManager;
  *     genres: list<string>
  * }
  */
-class MovieFixtures extends Fixture
+class MovieFixtures extends Fixture implements DependentFixtureInterface
 {
     /**
      * @var list<MovieRaw>
@@ -72,5 +73,12 @@ class MovieFixtures extends Fixture
         }
 
         $manager->flush();
+    }
+
+    public function getDependencies(): array
+    {
+        return [
+            GenreFixtures::class,
+        ];
     }
 }
