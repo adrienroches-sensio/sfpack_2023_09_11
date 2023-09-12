@@ -22,6 +22,21 @@ class MovieRepository extends ServiceEntityRepository
     }
 
     /**
+     * @return list<array{title: string, slug: string}>
+     */
+    public function listBySlugAndTitle(): array
+    {
+        $qb = $this->createQueryBuilder('movie');
+
+        $qb
+            ->select('movie.title')
+            ->addSelect('movie.slug')
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
      * @return list<Movie>
      */
     public function listAll(): array
