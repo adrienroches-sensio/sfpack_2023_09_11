@@ -9,6 +9,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: MovieRepository::class)]
+#[ORM\UniqueConstraint(name: 'IDX_UNIQUE_MOVIE_SLUG', fields: ['slug'])]
 class Movie
 {
     #[ORM\Id]
