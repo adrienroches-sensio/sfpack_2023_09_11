@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Genre;
 use App\Entity\Movie;
 use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -69,10 +70,19 @@ class MovieFixtures extends Fixture implements DependentFixtureInterface
                 ->setReleasedAt(new DateTimeImmutable($movieRaw['releasedAt']))
             ;
 
+            foreach ($movieRaw['genres'] as $genreName) {
+                $movie->addGenre($this->getGenre($genreName));
+            }
+
             $manager->persist($movie);
         }
 
         $manager->flush();
+    }
+
+    private function getGenre(string $genreName): Genre
+    {
+        return $this->getReference("Genre.{$genreName}");
     }
 
     public function getDependencies(): array

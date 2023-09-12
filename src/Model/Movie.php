@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model;
 
+use App\Entity\Genre as GenreEntity;
 use App\Entity\Movie as MovieEntity;
 use DateTimeImmutable;
 use function array_map;
@@ -36,7 +37,7 @@ final class Movie
             plot: $movieEntity->getPlot(),
             poster: $movieEntity->getPoster(),
             releasedAt: $movieEntity->getReleasedAt(),
-            genres: [],
+            genres: $movieEntity->getGenres()->map(fn(GenreEntity $genreEntity): string => $genreEntity->getName())->toArray(),
         );
     }
 
