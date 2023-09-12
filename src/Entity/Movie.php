@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Routing\Requirement\Requirement;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: MovieRepository::class)]
 #[ORM\UniqueConstraint(name: 'IDX_UNIQUE_MOVIE_SLUG', fields: ['slug'])]
@@ -20,21 +21,34 @@ class Movie
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotNull()]
+    #[Assert\Length(min: 7)]
+    #[Assert\Regex(pattern: '#'.self::SLUG_FORMAT.'#')]
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
+    #[Assert\NotNull()]
+    #[Assert\Length(min: 2)]
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
+    #[Assert\NotNull()]
+    #[Assert\Length(min: 4)]
     #[ORM\Column(length: 255)]
     private ?string $poster = null;
 
+    #[Assert\NotNull()]
+    #[Assert\Length(min: 10)]
     #[ORM\Column(type: Types::TEXT)]
     private ?string $plot = null;
 
+    #[Assert\NotNull()]
+    #[Assert\GreaterThan(value: '-200 years')]
+    #[Assert\LessThanOrEqual(value: '+100 years')]
     #[ORM\Column(type: Types::DATE_IMMUTABLE)]
     private ?\DateTimeImmutable $releasedAt = null;
 
+    #[Assert\Count(min: 1)]
     #[ORM\ManyToMany(targetEntity: Genre::class, inversedBy: 'movies')]
     private Collection $genres;
 
