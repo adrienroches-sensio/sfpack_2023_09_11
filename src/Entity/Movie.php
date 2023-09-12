@@ -35,7 +35,10 @@ class Movie
 
     #[Assert\NotNull()]
     #[Assert\Length(min: 4)]
-    #[MoviePosterExists()]
+    #[Assert\AtLeastOneOf(constraints: [
+        new MoviePosterExists(),
+        new Assert\Url()
+    ])]
     #[ORM\Column(length: 255)]
     private ?string $poster = null;
 

@@ -19,7 +19,8 @@
                 {% for movie in movies %}
                     <div class="col">
                         <div class="card shadow-sm">
-                            <img src="{{ asset('build/images/movies/' ~ movie.poster) }}" />
+                            {% set imagePath = movie.isRemotePoster ? movie.poster : asset('build/images/movies/' ~ movie.poster) %}
+                            <img src="{{ imagePath }}" />
                             <div class="card-body">
                                 <p class="card-text">
                                     {% for genre in movie.genres %}
