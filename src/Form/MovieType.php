@@ -17,7 +17,7 @@ class MovieType extends AbstractType
             ->add('poster')
             ->add('plot')
             ->add('releasedAt')
-            ->add('genres')
+//            ->add('genres')
         ;
     }
 
