@@ -37,7 +37,9 @@ final class Movie
             plot: $movieEntity->getPlot(),
             poster: $movieEntity->getPoster(),
             releasedAt: $movieEntity->getReleasedAt(),
-            genres: $movieEntity->getGenres()->map(fn(GenreEntity $genreEntity): string => $genreEntity->getName())->toArray(),
+            genres: $movieEntity->getGenres()
+                                ->map(fn(GenreEntity $genreEntity): string => $genreEntity->getName())
+                                ->toArray(),
         );
     }
 
