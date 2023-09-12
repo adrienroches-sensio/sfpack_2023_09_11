@@ -9,7 +9,7 @@
                 <img class="d-block mx-lg-auto img-fluid" width="700" height="500" src="{{ asset('build/images/movies/' ~ movie.poster) }}" />
             </div>
             <div class="col-lg-6">
-                <h1 class="display-5 fw-bold lh-1 mb-3">{{ movie.title|title }}</h1>
+                <h1 class="display-5 fw-bold lh-1 mb-3"><a href="{{ path('app_movies_edit', {'slug': movie.slug}) }}"><i class="fa fa-edit"></i></a>{{ movie.title|title }}</h1>
                 <small>({{ movie.releasedAt|format_date('medium') }})</small>
                 <p class="lead">
                     <span>{{ movie.plot }}</span>
