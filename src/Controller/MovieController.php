@@ -42,6 +42,22 @@ class MovieController extends AbstractController
     }
 
     #[Route(
+        path: '/movies/{imdbId}',
+        name: 'app_movies_details_omdb',
+        requirements: [
+            'imdbId' => 'tt.+',
+        ],
+        methods: ['GET']
+    )]
+    public function detailsFromOdb(string $imdbId): Response
+    {
+        dd($imdbId);
+        return $this->render('movie/details.html.twig', [
+            'movie' => '???',
+        ]);
+    }
+
+    #[Route(
         path: '/movies/new',
         name: 'app_movies_new',
         methods: ['GET', 'POST']
