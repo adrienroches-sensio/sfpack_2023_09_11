@@ -33,3 +33,15 @@ Running the tests
 ```bash
 $ symfony php ./bin/phpunit --testdox
 ```
+
+Importing movies
+================
+
+```bash
+$ symfony console app:movies:import "harry potter" "deadpool" "asterix" "avatar" tt123456
+```
+
+Use the following to try the command without importing :
+```bash
+$ symfony console app:movies:import "harry potter" "deadpool" "asterix" "avatar" tt123456 --dry-run
+```
