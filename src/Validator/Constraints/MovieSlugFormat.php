@@ -9,7 +9,7 @@ use Attribute;
 use Symfony\Component\Validator\Constraints\Compound;
 use Symfony\Component\Validator\Constraints\Regex;
 
-#[Attribute(Attribute::TARGET_METHOD, Attribute::TARGET_PROPERTY)]
+#[Attribute(Attribute::TARGET_METHOD | Attribute::TARGET_PROPERTY)]
 final class MovieSlugFormat extends Compound
 {
     protected function getConstraints(array $options): array
