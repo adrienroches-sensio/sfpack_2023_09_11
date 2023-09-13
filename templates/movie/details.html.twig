@@ -10,6 +10,7 @@
                 <img class="d-block mx-lg-auto img-fluid" width="700" height="500" src="{{ imagePath }}" />
             </div>
             <div class="col-lg-6">
+                <span class="badge bg-primary">{{ movie.rated.value }}</span>
                 <h1 class="display-5 fw-bold lh-1 mb-3">
                     {% if can_edit is same as (true) %}
                     <a href="{{ path('app_movies_edit', {'slug': movie.slug}) }}"><i class="fa fa-edit"></i></a>

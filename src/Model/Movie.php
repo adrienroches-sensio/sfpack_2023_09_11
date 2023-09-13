@@ -22,6 +22,7 @@ final class Movie
         public readonly string $title,
         public readonly string $plot,
         public readonly string $poster,
+        public readonly Rating $rated,
         public readonly DateTimeImmutable $releasedAt,
         public readonly array $genres,
     ) {
@@ -44,6 +45,7 @@ final class Movie
             title: $movieEntity->getTitle(),
             plot: $movieEntity->getPlot(),
             poster: $movieEntity->getPoster(),
+            rated: $movieEntity->getRated(),
             releasedAt: $movieEntity->getReleasedAt(),
             genres: $movieEntity->getGenres()
                                 ->map(fn(GenreEntity $genreEntity): string => $genreEntity->getName())
@@ -68,6 +70,7 @@ final class Movie
             title: $movieOmdb->Title,
             plot: $movieOmdb->Plot,
             poster: $movieOmdb->Poster,
+            rated: Rating::tryFrom($movieOmdb->Rated) ?? Rating::GeneralAudiences,
             releasedAt: new DateTimeImmutable($movieOmdb->Released),
             genres: explode(', ', $movieOmdb->Genre),
         );

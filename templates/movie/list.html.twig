@@ -23,6 +23,7 @@
                             <img src="{{ imagePath }}" />
                             <div class="card-body">
                                 <p class="card-text">
+                                    <span class="badge bg-primary">{{ movie.rated.value }}</span>
                                     {% for genre in movie.genres %}
                                         <span class="badge bg-dark">{{ genre }}</span>
                                     {% endfor %}
