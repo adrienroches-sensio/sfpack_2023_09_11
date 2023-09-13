@@ -17,6 +17,8 @@ class HelloControllerTest extends WebTestCase
 
     /**
      * @dataProvider provideValidRoutes
+     *
+     * @group smoke-test
      */
     public function testHelloRouteIsValid(string $uri, int $expectedStatusCode): void
     {
