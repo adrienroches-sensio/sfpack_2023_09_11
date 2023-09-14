@@ -45,3 +45,9 @@ Use the following to try the command without importing :
 ```bash
 $ symfony console app:movies:import "harry potter" "deadpool" "asterix" "avatar" tt123456 --dry-run
 ```
+
+Log in
+======
+
+1. `adrien`/`adrien` [admin]
+2. `max`/`max`
