@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Movie as MovieEntity;
 use App\Form\MovieType;
 use App\Model\Movie;
+use App\Model\Security;
 use App\Omdb\Client\ApiClientInterface;
 use App\Repository\MovieRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -42,8 +43,12 @@ class MovieController extends AbstractController
     )]
     public function details(MovieRepository $movieRepository, string $slug): Response
     {
+        $movie = Movie::fromEntity($movieRepository->getBySlug($slug));
+
+        $this->denyAccessUnlessGranted(Security::MOVIE_VIEW_DETAILS, $movie);
+
         return $this->render('movie/details.html.twig', [
-            'movie' => Movie::fromEntity($movieRepository->getBySlug($slug)),
+            'movie' => $movie,
             'can_edit' => true,
         ]);
     }
@@ -58,8 +63,12 @@ class MovieController extends AbstractController
     )]
     public function detailsFromOmdb(string $imdbId): Response
     {
+        $movie = Movie::fromOmdb($this->omdbApiClient->getById($imdbId));
+
+        $this->denyAccessUnlessGranted(Security::MOVIE_VIEW_DETAILS, $movie);
+
         return $this->render('movie/details.html.twig', [
-            'movie' => Movie::fromOmdb($this->omdbApiClient->getById($imdbId)),
+            'movie' => $movie,
             'can_edit' => false,
         ]);
     }
