@@ -3,12 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Movie as MovieEntity;
+use App\EventSubscriber\MovieAddedEvent;
 use App\Form\MovieType;
 use App\Model\Movie;
 use App\Model\Security;
 use App\Omdb\Client\ApiClientInterface;
 use App\Repository\MovieRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Clock\ClockInterface;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,6 +21,8 @@ class MovieController extends AbstractController
 {
     public function __construct(
         private readonly ApiClientInterface $omdbApiClient,
+        private readonly EventDispatcherInterface $eventDispatcher,
+        private readonly ClockInterface $clock,
     ) {
     }
 
@@ -100,16 +105,26 @@ class MovieController extends AbstractController
         $movieForm = $this->createForm(MovieType::class, $movieEntity);
         $movieForm->handleRequest($request);
 
+        $editingMovie = null !== $slug ? Movie::fromEntity($movieEntity) : null;
+
         if ($movieForm->isSubmitted() && $movieForm->isValid()) {
             $entityManager->persist($movieEntity);
             $entityManager->flush();
+
+            if (null === $editingMovie) {
+                $this->eventDispatcher->dispatch(new MovieAddedEvent(
+                    $movieEntity,
+                    $this->getUser(),
+                    $this->clock->now(),
+                ));
+            }
 
             return $this->redirectToRoute('app_movies_details', ['slug' => $movieEntity->getSlug()]);
         }
 
         return $this->render('movie/new_or_edit.html.twig', [
             'movie_form' => $movieForm,
-            'editing_movie' => null !== $slug ? Movie::fromEntity($movieEntity) : null,
+            'editing_movie' => $editingMovie,
         ]);
     }
 }
