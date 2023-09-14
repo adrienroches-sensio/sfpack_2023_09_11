@@ -30,4 +30,9 @@ final class RoleAdminVoter implements VoterInterface
 
         return $this->authorizationChecker->isGranted('ROLE_ADMIN') ? self::ACCESS_GRANTED : self::ACCESS_ABSTAIN;
     }
+
+    public static function getDefaultPriority(): int
+    {
+        return 10;
+    }
 }
