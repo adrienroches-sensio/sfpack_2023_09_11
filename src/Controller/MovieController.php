@@ -65,12 +65,12 @@ class MovieController extends AbstractController
     }
 
     #[Route(
-        path: '/movies/new',
+        path: '/admin/movies/new',
         name: 'app_movies_new',
         methods: ['GET', 'POST']
     )]
     #[Route(
-        path: '/movies/{slug}/edit',
+        path: '/admin/movies/{slug}/edit',
         name: 'app_movies_edit',
         requirements: [
             'slug' => MovieEntity::SLUG_FORMAT,
