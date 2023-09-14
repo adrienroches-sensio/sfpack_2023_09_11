@@ -22,7 +22,7 @@ class UserFixtures extends Fixture
         [
             'username' => 'max',
             'password' => 'max',
-            'is_admin' => false,
+            'is_admin' => true,
             'birthdate' => '5 April',
             'age' => 14,
         ],
@@ -58,7 +58,7 @@ class UserFixtures extends Fixture
 
             if (null !== $userDetail['age']) {
                 $birthYear = $this->clock->now()->modify("- {$userDetail['age']} years")->format('Y');
-                $birthDate = new DateTimeImmutable("{$userDetail['birthdate']} $birthYear");
+                $birthDate = new DateTimeImmutable("{$userDetail['birthdate']} {$birthYear}");
                 $user->setBirthdate($birthDate);
             }
 
